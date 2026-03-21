@@ -3,9 +3,11 @@ from logging import config
 from src.textSummarizer.logging import logger
 from src.textSummarizer.pipeline.data_ingestion_pipeline import DataIngestionTrainingPipeline
 from src.textSummarizer.pipeline.data_transformation_pipeline import DataTransformationTrainingPipeline
+from src.textSummarizer.pipeline.model_trainer_pipeline import ModelTrainerTrainingPipeline
 
 DATA_INGESTION = "Data Ingestion stage"
 DATA_TRANSFORMATION = "Data Transformation stage"
+MODEL_TRAINER = "Model Trainer stage"
 
 def main():
     ## Initiating the data ingestion training pipeline
@@ -24,6 +26,16 @@ def main():
         data_transformation_pipeline=DataTransformationTrainingPipeline()
         data_transformation_pipeline.initiate_data_Transformation()
         logger.info(f"Stage {DATA_TRANSFORMATION} Completed")
+    except Exception as e:
+        logger.exception(e)
+        raise e
+
+    ## Initiating the model trainer component
+    try:
+        logger.info(f"stage {MODEL_TRAINER} initiated")
+        model_trainer_pipeline=ModelTrainerTrainingPipeline()
+        model_trainer_pipeline.initiate_model_trainer()
+        logger.info(f"Stage {MODEL_TRAINER} Completed")
     except Exception as e:
         logger.exception(e)
         raise e
