@@ -1,7 +1,11 @@
+from logging import config
+
 from src.textSummarizer.logging import logger
 from src.textSummarizer.pipeline.data_ingestion_pipeline import DataIngestionTrainingPipeline
+from src.textSummarizer.pipeline.data_transformation_pipeline import DataTransformationTrainingPipeline
 
 DATA_INGESTION = "Data Ingestion stage"
+DATA_TRANSFORMATION = "Data Transformation stage"
 
 def main():
     ## Initiating the data ingestion training pipeline
@@ -10,6 +14,16 @@ def main():
         data_ingestion_pipeline=DataIngestionTrainingPipeline()
         data_ingestion_pipeline.initiate_data_ingestion()
         logger.info(f"Stage {DATA_INGESTION} Completed")
+    except Exception as e:
+        logger.exception(e)
+        raise e
+    
+    ## Initiating the data transformation component
+    try:
+        logger.info(f"stage {DATA_TRANSFORMATION} initiated")
+        data_transformation_pipeline=DataTransformationTrainingPipeline()
+        data_transformation_pipeline.initiate_data_Transformation()
+        logger.info(f"Stage {DATA_TRANSFORMATION} Completed")
     except Exception as e:
         logger.exception(e)
         raise e
